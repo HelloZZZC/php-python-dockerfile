@@ -8,14 +8,26 @@ SHELL ["/bin/bash", "-c"]
 RUN set -ex \
     && apt-get update \
     && apt-get install -y sudo \
-    && sudo apt-get install -y wget \
-    && sudo apt-get install -y gnupg \
-    && sudo apt-get install -y software-properties-common \
-    && sudo apt-get install -y ca-certificates wget \
-    && sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com F23C5A6CF475977595C89F51BA6932366A755776 \
-    && sudo add-apt-repository ppa:deadsnakes/ppa \
-    && sudo apt-get update \
-    && sudo apt-get install -y python3.7 \
+    && sudo apt-get install -y \
+        gcc \
+        g++ \
+        build-essential \
+        zlib1g-dev \
+        libncurses5-dev \
+        libgdbm-dev \
+        libnss3-dev \
+        libssl-dev \
+        libreadline-dev \
+        libffi-dev \
+        wget \
+        make \
+        xz-utils \
+    && wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tar.xz \
+    && tar -xf Python-3.7.4.tar.xz \
+    && cd Python-3.7.4 \
+    && ./configure --enable-optimizations \
+    && make -j 2 \
+    && sudo make altinstall \
     && sudo apt-get install -y python3-pip
 
 # 安装爬虫虚拟环境
@@ -26,7 +38,7 @@ RUN set -ex \
 RUN set -ex \
     && mkdir -p /var/www \
     && cd /var/www \
-    && virtualenv -p /usr/bin/python3.7 python3.7 \
+    && virtualenv -p /usr/local/bin/python3.7 python3.7 \
     && cd python3.7 \
     && source bin/activate
 
@@ -41,3 +53,5 @@ RUN set -ex \
 WORKDIR /var/www/python3.7
 
 CMD ["source", "bin/activate"]
+
+
