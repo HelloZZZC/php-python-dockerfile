@@ -14,6 +14,7 @@ RUN set -ex \
     && sudo apt-get install -y ca-certificates wget \
     && sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com F23C5A6CF475977595C89F51BA6932366A755776 \
     && sudo add-apt-repository ppa:deadsnakes/ppa \
+    && sudo apt-get update \
     && sudo apt-get install -y python3.7 \
     && sudo apt-get install -y python3-pip
 
