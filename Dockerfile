@@ -32,7 +32,7 @@ RUN set -ex \
 
 # 安装爬虫虚拟环境
 RUN set -ex \
-    && pip3 install virtualenv
+    && pip3 install --default-timeout=1000 virtualenv
 
 # 创建python虚拟环境目录
 RUN set -ex \
@@ -44,11 +44,13 @@ RUN set -ex \
 
 # 安装python项目依赖包
 RUN set -ex \
-    && pip3 install scrapy \
-    && pip3 install simplejson \
-    && pip3 install requests \
-    && pip3 install beautifulsoup4 \
-    && pip3 install scrapy-splash
+    && pip3 install --default-timeout=1000 scrapy \
+    && pip3 uninstall -y pyOpenSSL \
+    && pip3 install --default-timeout=1000 pyOpenSSL \
+    && pip3 install --default-timeout=1000 simplejson \
+    && pip3 install --default-timeout=1000 requests \
+    && pip3 install --default-timeout=1000 beautifulsoup4 \
+    && pip3 install --default-timeout=1000 scrapy-splash
 
 WORKDIR /var/www/python3.7
 
