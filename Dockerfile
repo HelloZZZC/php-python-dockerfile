@@ -54,6 +54,4 @@ RUN set -ex \
 
 WORKDIR /var/www/python3.7
 
-CMD ["source", "bin/activate"]
-
 
